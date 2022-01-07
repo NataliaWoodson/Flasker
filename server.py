@@ -1,3 +1,3 @@
-from flask import Flask
+import flaskr
 
-print("Hello World")
+flaskr.create_app().run()
