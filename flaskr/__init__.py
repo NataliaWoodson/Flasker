@@ -1,8 +1,13 @@
+# contains application factory
+# tells Python that the flaskr directory should be treated as a package
+
 import os
 from flask import Flask
 
+#application factory function
 def create_app(test_config=None):
   #create and configure the app
+  #create the flask instance
   app = Flask(__name__, instance_relative_config=True)
   app.config.from_mapping(
     SECRET_KEY='dev', 

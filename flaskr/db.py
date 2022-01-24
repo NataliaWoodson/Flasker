@@ -15,6 +15,7 @@ def get_db():
 
   return g.db 
 
+#check if a connection was created by checking if g.db was set. If connection exists, it is closed.
 def close_db(e=None):
   db = g.pop('db', None)
 
@@ -27,6 +28,7 @@ def init_db():
   with current_app.open_resource('schema.sql') as f:
     db.executescript(f.read().decode('utf8'))
 
+#defines a command line called init-db that calls the init_db function and shows a success message to the user
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
@@ -35,7 +37,9 @@ def init_db_command():
   click.echo('Initialized the database.')
 
 def init_app(app):
+  #tells Flask to call function when cleaning up after returning the response
   app.teardown_appcontext(close_db)
+  #adds a new command that can be called with the flask command
   app.cli.add_command(init_db_command)
 
   
